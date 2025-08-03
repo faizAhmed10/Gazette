@@ -16,7 +16,8 @@ export const ContextProvider = ({ children }) => {
 
   let [loading, setLoading] = useState(false);
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-  const cloudinaryUrl = import.meta.env.VITE_IMAGE_URL;
+  const backendUrlImg = import.meta.env.VITE_BACKEND_URL_IMG;
+  // const cloudinaryUrl = import.meta.env.VITE_IMAGE_URL;
   let [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
 
   const [authTokens, setAuthTokens] = useState(() => {
@@ -168,12 +169,14 @@ export const ContextProvider = ({ children }) => {
 
       if (response.status === 200) {
         setAuthTokens(data);
-        setReader(jwtDecode(data.access));
-        setReaderName(jwtDecode(data.access).user);
+        const decodedToken = jwtDecode(data.access);
+        setReader(decodedToken);
+        setReaderName(decodedToken.username);
         localStorage.setItem("authTokens", JSON.stringify(data));
         return true;
       }
     } catch (error) {
+      console.error("Token refresh error:", error);
       toast.error("Failed to refresh token. Please log in again.");
       logout();
     }
@@ -203,8 +206,9 @@ export const ContextProvider = ({ children }) => {
     };
 
     handleResize();
-    console.log(backendUrl)
-    const intervalTime = 1000 * 60 * 50;
+    
+    // Refresh token every 45 minutes (before the 60-minute expiration)
+    const intervalTime = 1000 * 60 * 45;
 
     const interval = setInterval(() => {
       console.log("Interval running");
@@ -223,8 +227,9 @@ export const ContextProvider = ({ children }) => {
     authTokens: authTokens,
     loading: loading,
     isSmallScreen: isSmallScreen,
-    cloudinaryUrl: cloudinaryUrl,
+    // cloudinaryUrl: cloudinaryUrl,
     backendUrl: backendUrl,
+    backendUrlImg: backendUrlImg,
     registerReader: registerReader,
     login: login,
     logout: logout,

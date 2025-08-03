@@ -99,7 +99,7 @@ const Create = () => {
             onClick={showPreview}
             className="p-2 rounded my-auto bg-black text-white"
           >
-            Priview
+            Preview
           </button>
           </div>
         <div className="flex justify-between items-center">

@@ -6,10 +6,10 @@ import "react-toastify/dist/ReactToastify.css";
 import ConfirmPopup from "../components/ConfirmPopup";
 
 const ArticleListItem = ({ myArticle, getArticles }) => {
-  let { authTokens, backendUrl, isSmallScreen, cloudinaryUrl } = useContext(AuthorContext);
+  let { authTokens, backendUrl, isSmallScreen, backendUrlImg } = useContext(AuthorContext);
   let [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  console.log(backendUrlImg,myArticle.image)
   const deleteArticle = async () => {
     setLoading(true);
     try {
@@ -50,11 +50,11 @@ const ArticleListItem = ({ myArticle, getArticles }) => {
         message="Are you sure you want to delete the article?"
       />
       <Link to={`/article/${myArticle.id}`}>
-        <div className="flex">
+        <div className="flex"> 
           <div>
             {isSmallScreen && myArticle.image && (
               <img
-                src={`${cloudinaryUrl}${myArticle.image}`}
+                src={`${backendUrlImg}${myArticle.image}`}
                 alt="..."
                 className="shadow-xl block rounded mx-auto max-h-[250px] object-cover my-auto"
               />
@@ -70,17 +70,17 @@ const ArticleListItem = ({ myArticle, getArticles }) => {
                 : myArticle.sub_title.substring(0, 30) + "..."}
             </p>
             <p
-              className="text-xl"
+              className="text-xl line-clamp-2"
               dangerouslySetInnerHTML={{
-                __html: myArticle.content.substring(0, 60),
+                __html: myArticle.content
               }}
             ></p>
           </div>
           {!isSmallScreen && myArticle.image && (
             <img
-            src={`${cloudinaryUrl}${myArticle.image}`}
+            src={`${backendUrlImg}${myArticle.image}`}
               alt="..."
-              className="shadow-xl block rounded lg:w-[30%] md:w-[30%] h-auto lg:max-h-[200px] object-cover mx-2 my-auto"
+              className="shadow-xl block rounded lg:w-[30%] md:w-[30%] h-auto lg:max-h-[200px] object-cover mr-2 my-auto"
             />
           )}
         </div>
