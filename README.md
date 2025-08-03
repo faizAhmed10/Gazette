@@ -8,6 +8,12 @@ Gazette is a comprehensive content publishing platform that connects authors and
 2. **Reader Portal** - An engaging platform for users to discover, read, and interact with published content
 3. **Backend API** - A robust Django REST API that powers both portals with secure authentication and data management
 
+## 📖 Background / Motivation
+
+As a member of the student council at my college, I once attended a meeting where one of my professors proposed launching a college newspaper to streamline the dissemination of notifications, events, and relevant news. That idea stuck with me.
+
+Instead of going the traditional print route, I saw an opportunity to apply my web development skills to create a digital platform tailored for this purpose. Over the semester break, I dedicated myself to building this project — brick by brick — to transform that concept into a functional and accessible online solution for students and faculty alike.
+
 ## Key Features
 
 ### Author Portal
